@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dear Enter The Password ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+        
+        :root {
+            --primary: #ff6b81;
+            --secondary: #ff4757;
+            --light: #fff6f6;
+            --dark: #2f3542;
+            --shadow: 0 4px 15px rgba(255, 107, 129, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        
+        .valentine-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            opacity: 0;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Login Screen */
+        .login-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            transition: all 0.5s ease;
+        }
+        
+        .login-box {
+            background: white;
+            padding: 2rem 3rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+        }
+        
+        .login-box h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+        }
+        
+        .login-box p {
+            margin-bottom: 2rem;
+            color: #666;
+        }
+        
+        .password-input {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .password-input input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            outline: none;
+        }
+        
+        .password-input input:focus {
+            border-color: var(--primary);
+        }
+        
+        .password-input label {
+            position: absolute;
+            left: 20px;
+            top: 12px;
+            color: #999;
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+        
+        .password-input input:focus + label,
+        .password-input input:not(:placeholder-shown) + label {
+            top: -10px;
+            left: 15px;
+            background: white;
+            padding: 0 5px;
+            font-size: 0.8rem;
+            color: var(--primary);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 129, 0.4);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 129, 0.6);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .error-message {
+            color: #ff4757;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: none;
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        .love-letter {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+        
+        .love-letter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/light-paper-fibers.png');
+            opacity: 0.1;
+            border-radius: 15px;
+            pointer-events: none;
+        }
+        
+        .love-letter h2 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        
+        .love-letter p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .memories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .memory-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .memory-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 107, 129, 0.3);
+        }
+        
+        .memory-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .memory-content {
+            padding: 1.5rem;
+        }
+        
+        .memory-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .memory-content p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .floating-heart {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(255, 107, 129, 0.6);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s;
+        }
+        
+        .floating-heart:hover {
+            transform: scale(1.1);
+        }
+        
+        .floating-heart i {
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-box {
+                padding: 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .love-letter {
+                padding: 1.5rem;
+            }
+            
+            .memories {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Valentine Hearts Background -->
+    <div class="valentine-hearts" id="hearts-container"></div>
+    
+    <!-- Login Screen -->
+    <div class="login-container" id="login-container">
+        <div class="login-box">
+            <h1>Dear Enter The Password ❤️</h1>
+            <p>Both of Us Birthday's Together!</p>
+            
+            <div class="password-input">
+                <input type="text" id="password-input" placeholder=" " autocomplete="off">
+                <label for="password-input">Special Name</label>
+            </div>
+            
+            <button class="submit-btn" id="submit-btn">Enter Our World</button>
+            <p class="error-message" id="error-message">Wrong name, try again!</p>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        <div class="header animate-in">
+            <h1>Dear Bhavya ❤️</h1>
+            <p>Our journey together, in memories and words</p>
+        </div>
+        
+        <div class="love-letter animate-in delay-1">
+            <h2>DO YOU REMEMBER THE DAY WHEN WE MEET?</h2>
+            <p>
+                Dear Bhavya, maine tumhe bahot pyar kiya hai or aage karta rahunga! kash tum bhi mujhse karti lekin tumhe pata na kya hoagya hai ki tum mujhse bolna hi nahi chahti hamlog kitne ache se khush the lekin pata nahi kya tha jo ye sab bigad diya meri aakhri wish hai ki tum apni zindagi me khush or safe raho!!!
+            </p>
+            <p>
+                I AM PROTECTING YOU FROM THE SHADOWS...!
+            </p>
+            <p>
+                Tumhare bina har pal adhura sa lagta hai... har cheez mein tumhari yaad aa jati hai. Woh lamhe jab hum saath the, woh hansi, woh baatein, sab kuch itna pyara tha. Maine kabhi socha bhi nahi tha ki ek din aisa hoga jab tum door chali jaogi.
+            </p>
+            <p>
+                Par phir bhi, main chahta hoon ki tum hamesha khush raho... chahe woh khushi mere saath ho ya na ho. Tumhare liye meri dua hamesha rahegi.
+            </p>
+        </div>
+        
+        <div class="memories"></div>
+
+        <div class="footer animate-in delay-4">
+            <p>Made with ❤️ for my Bhavya - Forever in my heart</p>
+        </div>
+    </div>
+    
+    <div class="floating-heart" id="floating-heart">
+        <i class="fas fa-heart"></i>
+    </div>
+    
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const colors = ['#ff6b81', '#ff7f8e', '#ff929e', '#ffa5ad', '#ffb8bd'];
+            
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heart.style.animationDelay = Math.random() * 6 + 's';
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                container.appendChild(heart);
+            }
+        }
+        
+        // Password check
+        document.getElementById('submit-btn').addEventListener('click', function() {
+            const password = document.getElementById('password-input').value.trim();
+            const errorMessage = document.getElementById('error-message');
+            
+            if (password.toLowerCase() === '1824') {
+                document.getElementById('login-container').style.opacity = '0';
+                document.getElementById('login-container').style.pointerEvents = 'none';
+                
+                setTimeout(() => {
+                    document.getElementById('login-container').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                    
+                    // Animate in elements
+                    const elements = document.querySelectorAll('.animate-in');
+                    elements.forEach(el => {
+                        el.style.opacity = '0';
+                        setTimeout(() => {
+                            el.style.opacity = '1';
+                        }, 100);
+                    });
+                }, 500);
+            } else {
+                errorMessage.style.display = 'block';
+                document.getElementById('password-input').classList.add('shake');
+                setTimeout(() => {
+                    document.getElementById('password-input').classList.remove('shake');
+                }, 500);
+            }
+        });
+        
+        // Allow Enter key to submit
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-btn').click();
+            }
+        });
+        
+        // Floating heart effect
+        document.getElementById('floating-heart').addEventListener('click', function() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = (window.innerWidth - 60) + 'px';
+            heart.style.bottom = '60px';
+            heart.style.fontSize = '24px';
+            heart.style.position = 'fixed';
+            heart.style.animation = 'float 4s ease-in-out forwards';
+            heart.style.color = '#ff6b81';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        });
+        
+        // Initialize
+        window.addEventListener('load', function() {
+            createHearts();
+            
+            // Add shake animation
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                    20%, 40%, 60%, 80% { transform: translateX(5px); }
+                }
+                .shake {
+                    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
